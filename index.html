@@ -14,7 +14,6 @@ body {
   background: linear-gradient(135deg, #ffe0ec, #e0c3fc);
   text-align: center;
   overflow-x: hidden;
-  color: #333;
 }
 
 /* Glass container */
@@ -27,29 +26,19 @@ body {
   box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
-/* Title */
 h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 3em;
   color: #b76e79;
 }
 
-/* Image styling */
 .image-box img {
   width: 280px;
   border-radius: 20px;
   margin-top: 15px;
-  box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+  box-shadow: 0 0 25px rgba(255,105,180,0.5);
 }
 
-/* Message */
-.message {
-  margin-top: 25px;
-  font-size: 1.1em;
-  line-height: 1.7;
-}
-
-/* Button */
 .btn {
   margin-top: 30px;
   padding: 12px 28px;
@@ -59,11 +48,41 @@ h1 {
   color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.btn:hover {
-  transform: scale(1.1);
+/* Popup */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 400px;
+  animation: scaleUp 0.5s ease;
+}
+
+@keyframes scaleUp {
+  from {transform: scale(0);}
+  to {transform: scale(1);}
+}
+
+/* Message typing */
+#typedMessage {
+  margin-top: 15px;
+  font-size: 1.1em;
+  line-height: 1.6;
+  min-height: 120px;
 }
 
 /* Floating hearts & balloons */
@@ -71,14 +90,6 @@ h1 {
   position: fixed;
   bottom: -50px;
   animation: floatUp 6s linear infinite;
-}
-
-.heart {
-  color: #ff6b81;
-}
-
-.balloon {
-  font-size: 25px;
 }
 
 @keyframes floatUp {
@@ -94,33 +105,50 @@ h1 {
   <h1>Happy Birthday Mrs. Shah 💖</h1>
 
   <div class="image-box">
-    <img src="IMG_3686.jpeg" alt="Mrs Shah">
+    <img src="IMG_3686.jpeg">
   </div>
 
-  <div class="message">
-    <b>Wishing a very Happy Birthday to Mrs. Shah! 🎉</b><br><br>
-
-    Aunty, <b>TINA</b> pase thi tamara vishe itlu badhu sambhalyu chhe ke tamne mali ne toh nathi pan jaine em lage chhe ke tame khub j <b>"Saras"</b> vyakti chho 💖<br><br>
-
-    Saachu kahu toh, e jevi chhe e badhu tamara j <b>"Sanskar"</b> nu parinam chhe! 🌸<br><br>
-
-    I hope you have a fantastic day filled with happiness and health ✨<br>
-    Best wishes 💐
-  </div>
-
-  <button class="btn" onclick="surprise()">🎁 Click for Surprise</button>
-
-  <audio id="music" loop>
-    <source src="music.mp3" type="audio/mp3">
-  </audio>
+  <button class="btn" onclick="openPopup()">🎁 Click for Surprise</button>
 </div>
 
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>🎉 A Special Message 💖</h2>
+    <div id="typedMessage"></div>
+  </div>
+</div>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+
 <script>
-function surprise() {
+const message = `Wishing a very Happy Birthday to Mrs. Shah! 🎉
+
+Aunty, TINA pase thi tamara vishe itlu badhu sambhalyu chhe ke tamne mali ne toh nathi pan jaine em lage chhe ke tame khub j "Saras" vyakti chho 💖
+
+Saachu kahu toh, e jevi chhe e badhu tamara j "Sanskar" nu parinam chhe! 🌸
+
+I hope you have a fantastic day filled with happiness and health ✨
+Best wishes 💐`;
+
+function openPopup() {
+  document.getElementById("popup").style.display = "flex";
   document.getElementById("music").play();
+  typeMessage();
 }
 
-/* hearts + balloons animation */
+let i = 0;
+function typeMessage() {
+  if (i < message.length) {
+    document.getElementById("typedMessage").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeMessage, 35);
+  }
+}
+
+/* hearts + balloons */
 setInterval(() => {
   const el = document.createElement("div");
   const isHeart = Math.random() > 0.5;
