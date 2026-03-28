@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mrs. Shah 🎂</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffe0ec, #e0c3fc);
+  text-align: center;
+  overflow-x: hidden;
+  color: #333;
+}
+
+/* Glass container */
+.container {
+  margin: 30px;
+  padding: 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+/* Title */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3em;
+  color: #b76e79;
+}
+
+/* Image styling */
+.image-box img {
+  width: 280px;
+  border-radius: 20px;
+  margin-top: 15px;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+}
+
+/* Message */
+.message {
+  margin-top: 25px;
+  font-size: 1.1em;
+  line-height: 1.7;
+}
+
+/* Button */
+.btn {
+  margin-top: 30px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #ff7eb3, #ff4f9a);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+/* Floating hearts & balloons */
+.heart, .balloon {
+  position: fixed;
+  bottom: -50px;
+  animation: floatUp 6s linear infinite;
+}
+
+.heart {
+  color: #ff6b81;
+}
+
+.balloon {
+  font-size: 25px;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Happy Birthday Mrs. Shah 💖</h1>
+
+  <div class="image-box">
+    <img src="mom.jpg" alt="Mrs Shah">
+  </div>
+
+  <div class="message">
+    <b>Wishing a very Happy Birthday to Mrs. Shah! 🎉</b><br><br>
+
+    Aunty, <b>TINA</b> pase thi tamara vishe itlu badhu sambhalyu chhe ke tamne mali ne toh nathi pan jaine em lage chhe ke tame khub j <b>"Saras"</b> vyakti chho 💖<br><br>
+
+    Saachu kahu toh, e jevi chhe e badhu tamara j <b>"Sanskar"</b> nu parinam chhe! 🌸<br><br>
+
+    I hope you have a fantastic day filled with happiness and health ✨<br>
+    Best wishes 💐
+  </div>
+
+  <button class="btn" onclick="surprise()">🎁 Click for Surprise</button>
+
+  <audio id="music" loop>
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
+</div>
+
+<script>
+function surprise() {
+  document.getElementById("music").play();
+}
+
+/* hearts + balloons animation */
+setInterval(() => {
+  const el = document.createElement("div");
+  const isHeart = Math.random() > 0.5;
+
+  el.className = isHeart ? "heart" : "balloon";
+  el.innerText = isHeart ? "💖" : "🎈";
+
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+  document.body.appendChild(el);
+
+  setTimeout(() => el.remove(), 6000);
+}, 300);
+</script>
+
+</body>
+</html>
