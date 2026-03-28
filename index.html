@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Glass container */
+/* MAIN CARD */
 .container {
   margin: 30px;
   padding: 25px;
@@ -39,53 +39,74 @@ h1 {
   box-shadow: 0 0 25px rgba(255,105,180,0.5);
 }
 
+/* BUTTON */
 .btn {
   margin-top: 30px;
-  padding: 12px 28px;
-  border: none;
+  padding: 14px 30px;
   border-radius: 30px;
+  border: none;
   background: linear-gradient(45deg, #ff7eb3, #ff4f9a);
   color: white;
   font-size: 16px;
   cursor: pointer;
 }
 
-/* Popup */
+/* POPUP GLASS */
 .popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.7);
   display: none;
   justify-content: center;
   align-items: center;
+  background: rgba(0,0,0,0.5);
 }
 
 .popup-content {
-  background: white;
   padding: 25px;
-  border-radius: 20px;
   width: 85%;
   max-width: 400px;
+  border-radius: 20px;
+
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+
+  box-shadow: 0 0 40px rgba(255,105,180,0.4);
   animation: scaleUp 0.5s ease;
 }
 
 @keyframes scaleUp {
-  from {transform: scale(0);}
-  to {transform: scale(1);}
+  from { transform: scale(0.6); opacity:0; }
+  to { transform: scale(1); opacity:1; }
 }
 
-/* Message typing */
+/* MESSAGE */
 #typedMessage {
   margin-top: 15px;
   font-size: 1.1em;
   line-height: 1.6;
-  min-height: 120px;
+  min-height: 140px;
+  color: #fff;
 }
 
-/* Floating hearts & balloons */
+/* CONFETTI */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: red;
+  top: -10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* FLOATING ELEMENTS */
 .heart, .balloon {
   position: fixed;
   bottom: -50px;
@@ -108,13 +129,13 @@ h1 {
     <img src="IMG_3686.jpeg">
   </div>
 
-  <button class="btn" onclick="openPopup()">🎁 Click for Surprise</button>
+  <button class="btn" onclick="startSurprise()">🎁 Click for Surprise</button>
 </div>
 
 <!-- POPUP -->
 <div class="popup" id="popup">
   <div class="popup-content">
-    <h2>🎉 A Special Message 💖</h2>
+    <h2 style="color:white;">🎉 A Special Message 💖</h2>
     <div id="typedMessage"></div>
   </div>
 </div>
@@ -133,18 +154,33 @@ Saachu kahu toh, e jevi chhe e badhu tamara j "Sanskar" nu parinam chhe! 🌸
 I hope you have a fantastic day filled with happiness and health ✨
 Best wishes 💐`;
 
-function openPopup() {
+function startSurprise() {
   document.getElementById("popup").style.display = "flex";
   document.getElementById("music").play();
   typeMessage();
+  launchConfetti();
 }
 
+/* typing */
 let i = 0;
 function typeMessage() {
   if (i < message.length) {
     document.getElementById("typedMessage").innerHTML += message.charAt(i);
     i++;
-    setTimeout(typeMessage, 35);
+    setTimeout(typeMessage, 30);
+  }
+}
+
+/* confetti */
+function launchConfetti() {
+  for (let i = 0; i < 120; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration = (Math.random()*2 + 2) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
   }
 }
 
